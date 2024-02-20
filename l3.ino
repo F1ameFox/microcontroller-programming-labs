@@ -8,9 +8,9 @@ volatile bool c0;
 int counter = 0;
 
 void setup() {
-  pinMode(A1,2);//DDRC &= ~(1 << PC1); // INPUT
-  pinMode(A2,2);
-  pinMode(A3,2);
+  pinMode(A1,0);//DDRC &= ~(1 << PC1); // INPUT
+  pinMode(A2,0);
+  pinMode(A3,0);
   if(PULLUP)PORTC |= 1 << PC1 | 1 << PC2 | 1 << PC3;
   DDRB|= 1<<pin[3] | 1<<pin[2] | 1<<pin[1] | 1<<pin[0];
 
