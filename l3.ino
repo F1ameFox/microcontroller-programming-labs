@@ -1,17 +1,17 @@
-#define DEBUG 0
+#define DEBUG 1
+#define PULLUP 1
 
 int pin[]={2,3,4,5};
-//bool flag = 1;
 volatile bool a0;
 volatile bool b0;
 volatile bool c0;
 int counter = 0;
-//bool binar[4];
 
 void setup() {
   pinMode(A1,2);//DDRC &= ~(1 << PC1); // INPUT
-  pinMode(A2,2);//PORTC |= (1 << PC1); // PULLUP
+  pinMode(A2,2);
   pinMode(A3,2);
+  if(PULLUP)PORTC |= 1 << PC1 | 1 << PC2 | 1 << PC3;
   DDRB|= 1<<pin[3] | 1<<pin[2] | 1<<pin[1] | 1<<pin[0];
 
   PCICR = 1<<1;
@@ -49,8 +49,6 @@ void changeVal(bool up){
   counter = max(min(counter + (up ? 1 : -1), 15), 0);
   PORTB=~(counter<<2);
   if(DEBUG)debug();
-
-  //binar[0]==0 ? PORTB|=(1<<pin[0]):PORTB&=~(1<<pin[0]); //? digitalWrite(pin[0]+8,1):digitalWrite(pin[0]+8,0)
 }
 
 void debug(){
@@ -59,12 +57,4 @@ void debug(){
   Serial.print("\t");
   Serial.println(counter);
 }
-
-/*void binary(){
-  int dec = counter;
-  for(int i = 3;i>=0;i--){
-    binar[i]=dec%2;
-    dec = dec/2;
-  }
-}*/
 void loop(){}
